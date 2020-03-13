@@ -3,14 +3,12 @@ import mysql.connector
 fake = Faker()
 import random
 
-
 CON = mysql.connector.connect(
     user= 'oc_student',
     password='password',
     host='localhost',
     database = 'oc_pizza_2')
 KURSOR = CON.cursor()
-
 
 KURSOR.execute(
     "INSERT INTO Role VALUES ('1','admin'),('2','pizzaiolo'),('3','delivery_man'),('4','customer')")
@@ -27,11 +25,10 @@ for i in range (0,10):
     ad_datas_address = ("INSERT INTO Address (road_number,address_line1,address_line2,town_city,postcode,region_state,country) VALUES (%s,%s,%s,%s,%s,%s,%s)")
     KURSOR.execute(ad_datas_address,datas_address)
 
-KURSOR.execute("INSERT INTO Order_status VALUES (")
-
-for i in range (0,10):
-
-
+for i in range (1,6):
+    id_shop= str(i)
+    datas_address = (id_shop,fake.building_number(),fake.street_address(),fake.street_address(),fake.city(),fake.postcode(),fake.state(),fake.country())
+    ad_datas_address= ("INSERT INTO Shop (id,road_number,address_line1,address_line2,town_city,postcode,region_state,country) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)")
 
 CON.commit()
 
