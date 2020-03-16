@@ -10,8 +10,23 @@ CON = mysql.connector.connect(
     database = 'oc_pizza_2')
 KURSOR = CON.cursor()
 
+def fetch_pk(table):
+    table = str(table)
+    fetch_datas = ("SELECT id FROM {}".format(table))
+    print (fetch_datas)
+
+
+KURSOR.execute("DELETE FROM User")
+KURSOR.execute("DELETE FROM Shop")
+KURSOR.execute("DELETE FROM Role")
+KURSOR.execute("DELETE FROM Article")
+KURSOR.execute("DELETE FROM Order_status")
+KURSOR.execute("DELETE FROM Ingredient")
+
 KURSOR.execute(
     "INSERT INTO Role VALUES ('1','admin'),('2','pizzaiolo'),('3','delivery_man'),('4','customer')")
+KURSOR.execute(
+    "INSERT INTO Order_status VALUES ('1','cancelled'),('2','preparation'),('3','delivery'),('4','delivered')")
 
 for i in range (0,10):
     rand = random.randint (1,4)
@@ -27,8 +42,23 @@ for i in range (0,10):
 
 for i in range (1,6):
     id_shop= str(i)
-    datas_address = (id_shop,fake.building_number(),fake.street_address(),fake.street_address(),fake.city(),fake.postcode(),fake.state(),fake.country())
-    ad_datas_address= ("INSERT INTO Shop (id,road_number,address_line1,address_line2,town_city,postcode,region_state,country) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)")
+    datas_shop = (id_shop,fake.building_number(),fake.street_address(),fake.street_address(),fake.city(),fake.postcode(),fake.state(),fake.country())
+    ad_datas_shop= ("INSERT INTO Shop (id,road_number,address_line1,address_line2,town_city,postcode,region_state,country) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)")
+    KURSOR.execute(ad_datas_shop,datas_shop)
+
+for i in range (0,20):
+    id_article = str(i)
+    datas_article = (id_article,fake.city(),fake.street_address())
+    ad_datas_article = ("INSERT INTO Article (id,name,description) VALUES (%s,%s,%s)")
+    KURSOR.execute(ad_datas_article,datas_article)
+
+for i in range (0,12):
+    id_ingredient = str(i)
+    datas_ingredient = (id_ingredient,fake.color_name())
+    ad_datas_ingredient = ("INSERT INTO Ingredient (id,name) VALUES (%s,%s)")
+    KURSOR.execute(ad_datas_ingredient,datas_ingredient)
+
+fetch_pk('table')
 
 CON.commit()
 
