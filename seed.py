@@ -12,6 +12,7 @@ CON = mysql.connector.connect(
     database = 'oc_pizza_2')
 KURSOR = CON.cursor()
 
+'''deleting all datas in tables before refilling it'''
 KURSOR.execute("DELETE FROM Price")
 KURSOR.execute("DELETE FROM Stock")
 KURSOR.execute("DELETE FROM Composition")
@@ -26,6 +27,7 @@ KURSOR.execute("DELETE FROM Article")
 KURSOR.execute("DELETE FROM Ingredient")
 KURSOR.execute("DELETE FROM Address")
 
+'''reset auto_increment in tables'''
 KURSOR.execute("ALTER TABLE Address AUTO_INCREMENT = 1")
 KURSOR.execute("ALTER TABLE User AUTO_INCREMENT = 1")
 KURSOR.execute("ALTER TABLE Order_main AUTO_INCREMENT = 1")
@@ -44,7 +46,7 @@ for i in range(0, 20):# User table creation
     " VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
     KURSOR.execute(ad_datas_bis, datas_bis)
 
-for _ in range(0, 20):# Address tabble creation
+for _ in range(0, 20):# Address table feeding
     datas_address = (fake.building_number(), fake.street_address(), fake.street_address(), 
         fake.city(), fake.postcode(), fake.state(), fake.country())
     ad_datas_address = ("INSERT INTO Address (road_number, address_line1, address_line2,"
@@ -52,7 +54,7 @@ for _ in range(0, 20):# Address tabble creation
     " VALUES (%s, %s, %s, %s, %s, %s, %s)")
     KURSOR.execute(ad_datas_address, datas_address)
 
-for i in range(1, 6):#Shop table creation
+for i in range(1, 6):#Shop table feeding
     id_shop= str(i)
     datas_shop = (id_shop, fake.building_number(), fake.street_address(), fake.street_address(), 
         fake.city(), fake.postcode(), fake.state(), fake.country())
@@ -61,19 +63,19 @@ for i in range(1, 6):#Shop table creation
     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
     KURSOR.execute(ad_datas_shop, datas_shop)
 
-for i in range(0, 25):#Article table creation
+for i in range(0, 25):#Article table feeding
     id_article = str(i+1)
     datas_article = (id_article, fake.city(), fake.street_address())
     ad_datas_article = ("INSERT INTO Article (id, name, description) VALUES (%s, %s, %s)")
     KURSOR.execute(ad_datas_article, datas_article)
 
-for i in range(0, 12):#Ingredient table creation
+for i in range(0, 12):#Ingredient table feeding
     id_ingredient = str(i+1)
     datas_ingredient = (id_ingredient, fake.color_name())
     ad_datas_ingredient = ("INSERT INTO Ingredient (id, name) VALUES (%s, %s)")
     KURSOR.execute(ad_datas_ingredient, datas_ingredient)
 
-for _ in range(0, 20):#Order table creation
+for _ in range(0, 20):#Order table feeding
     payment = random.choice(['y', 'n'])
     payment_method = random.choice(['cash', 'card', 'check'])
     delivery_method = random.choice(['on_the_spot', 'to_take_away', 'delivered'])
@@ -89,7 +91,7 @@ for _ in range(0, 20):#Order table creation
     " VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
     KURSOR.execute(ad_datas_order, datas_order)
 
-for i in range(0, 20):#Order_preparation table creation
+for i in range(0, 20):#Order_preparation table feeding
     order = str(i+1)
     user = str(random.randint(1, 20))
     datas_order_preparation = (user, order)
@@ -97,7 +99,7 @@ for i in range(0, 20):#Order_preparation table creation
     " VALUES (%s, %s)")
     KURSOR.execute (ad_datas_order_preparation, datas_order_preparation)
 
-for i in range(0, 20):#Order_line table creation
+for i in range(0, 20):#Order_line table feeding
     order = str(i+1)
     article = str(random.randint(1, 25))
     datas_order_line = (article,order, (1))
@@ -105,7 +107,7 @@ for i in range(0, 20):#Order_line table creation
     " VALUES (%s, %s, %s)")
     KURSOR.execute(ad_datas_order_line, datas_order_line)
 
-for i in range(0, 25):
+for i in range(0, 25):#Composition table feeding
     article = str(i+1)
     for i in range (0, 10):
         datas_compo = (article, random.randint(1, 12), random.randint(100, 500), 0)
@@ -113,7 +115,7 @@ for i in range(0, 25):
         " VALUES (%s, %s, %s, %s)")
         KURSOR.execute(ad_datas_compo, datas_compo)
 
-for i in range(0, 5):
+for i in range(0, 5):#Stock table feeding
     store = str(i+1)
     for i in range (0, 12):
         datas_stock = (i+1, random.randint(0, 1000), store)
@@ -121,7 +123,7 @@ for i in range(0, 5):
         " VALUES (%s, %s, %s)")
         KURSOR.execute(ad_datas_stock, datas_stock)
 
-for i in range(0, 5):
+for i in range(0, 5):#Price table feeding
     store = str(i+1)
     for i in range(0, 12):
         datas_price = (store, i+1, random.randint(10, 30))
@@ -129,7 +131,7 @@ for i in range(0, 5):
         " VALUES(%s, %s, %s)")
         KURSOR.execute(ad_datas_price, datas_price)
 
-CON.commit()
+CON.commit() #Update changes
 
-KURSOR.close()
-CON.close()
+KURSOR.close() #Make it habit
+CON.close() #the end
