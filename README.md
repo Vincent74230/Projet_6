@@ -1,6 +1,6 @@
 # HOW TO CREATE AND FILL THIS DATABASE (GNU / LINUX)
 
-###I - Install requirements;
+### I - Install requirements;
 
 1 - Open a console and place yourself in the programm folder
 
@@ -12,7 +12,7 @@
 
 5 - Install all requirements needed for the programm : pip3 install -r requirements.txt
 
-###II - Install and configure mysql;
+### II - Install and configure mysql;
 
 1 - Install mysql client server : sudo apt-get install mysql-server mysql-client
 
@@ -33,7 +33,7 @@ You're now logged as the new user
 
 You're now in the database
 
-###III - Create and fill database;
+### III - Create and fill database;
 
 Type : SOURCE init.sql;
 
