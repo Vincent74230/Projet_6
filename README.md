@@ -2,7 +2,7 @@
 
 ### I - Install requirements;
 
-1 - `Open a console and place yourself in the programm folder`
+1 - Open a console and place yourself in the programm folder
 
 2 - Install virtual env : pip3 install virtual env
 
@@ -35,6 +35,23 @@ You're now in the database
 
 ### III - Create and fill database;
 
+
+__From now, two possible options:__
+
+#### First option: (simplest)
 Type : SOURCE init.sql;
 
 The oc_student_database is now created
+
+#### Second option (in two times):
+While you're already in the database:
+Type : SOURCE oc_pizza_2.sql
+This will create an empy database
+
+Then: Go back to your favourite good old console.
+
+In the console (beware to be in the right directory):
+
+Type : python seed.py
+
+THe BD is now created and filled out, congratulations :)
