@@ -37,7 +37,7 @@ KURSOR.execute(
 KURSOR.execute(
     "INSERT INTO Order_status VALUES ('1', 'cancelled'),('2', 'preparation'), ('3','on_delivery'), ('4','delivered')")
 
-for i in range(0, 20):# User table creation
+for i in range(0, 20):# User table feeding
     rand_role = str(random.randint(1, 4))
     datas_bis = (fake.last_name(), fake.job(), fake.first_name(), fake.last_name(), fake.email(), 
         fake.phone_number(), fake.date_time(), rand_role)
@@ -76,7 +76,7 @@ for i in range(0, 12):#Ingredient table feeding
     KURSOR.execute(ad_datas_ingredient, datas_ingredient)
 
 for _ in range(0, 20):#Order table feeding
-    payment = random.choice(['y', 'n'])
+    payment = random.choice([0, 1])
     payment_method = random.choice(['cash', 'card', 'check'])
     delivery_method = random.choice(['on_the_spot', 'to_take_away', 'delivered'])
     shop_id = str(random.randint(1, 5))
@@ -93,11 +93,12 @@ for _ in range(0, 20):#Order table feeding
 
 for i in range(0, 20):#Order_preparation table feeding
     order = str(i+1)
-    user = str(random.randint(1, 20))
-    datas_order_preparation = (user, order)
-    ad_datas_order_preparation = ("INSERT INTO Order_preparation (user_id, order_id)"
-    " VALUES (%s, %s)")
-    KURSOR.execute (ad_datas_order_preparation, datas_order_preparation)
+    for _ in range (0, 2):
+        user = str(random.randint(1, 20))
+        datas_order_preparation = (user, order)
+        ad_datas_order_preparation = ("INSERT INTO Order_preparation (user_id, ORDER_ID)"
+        " VALUES (%s, %s)")
+        KURSOR.execute (ad_datas_order_preparation, datas_order_preparation)
 
 for i in range(0, 20):#Order_line table feeding
     order = str(i+1)

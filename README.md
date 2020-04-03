@@ -2,7 +2,7 @@
 
 ### I - Install requirements;
 
-1 - Open a console and place yourself in the programm folder
+1 - `Open a console and place yourself in the programm folder`
 
 2 - Install virtual env : pip3 install virtual env
 
